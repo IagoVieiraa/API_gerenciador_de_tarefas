@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse
+from django.utils import timezone
 from django.core.serializers.json import DjangoJSONEncoder
 import json
 from django.views.decorators.csrf import csrf_exempt
@@ -19,7 +20,8 @@ def criar_tarefa(request):
             'name' : request.POST.get('name'),
             'description' : request.POST.get('description'),
             'status' : request.POST.get('status'),
-            'priority' : request.POST.get('priority')
+            'priority' : request.POST.get('priority'),
+            'inserted_at' : timezone.now()
         }
         models.Tarefa.objects.create(**dados)
     return HttpResponse(json.dumps({"status": "success"}), content_type='application/json')

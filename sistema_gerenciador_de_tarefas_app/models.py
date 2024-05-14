@@ -7,6 +7,7 @@ class Tarefa(models.Model):
     description = models.CharField(max_length=244)
     status = models.CharField(max_length=50)
     priority = models.CharField(max_length=50)
+    inserted_at = models.DateTimeField()
     
     def to_dict(self):
         return {
@@ -15,4 +16,5 @@ class Tarefa(models.Model):
             'description': self.description,
             'status': self.status,
             'priority': self.priority,
+            'inserted_at': self.inserted_at
         }        
