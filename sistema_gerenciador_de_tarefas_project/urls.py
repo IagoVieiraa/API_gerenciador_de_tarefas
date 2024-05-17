@@ -19,6 +19,6 @@ from sistema_gerenciador_de_tarefas_app import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('tarefas', views.listar_tarefas, name='listar_tarefas'),
+    path('tarefas/', views.listar_tarefas, name='listar_tarefas'),
     path('tarefas/criar', views.criar_tarefa, name='criar_tarefa')
 ]
