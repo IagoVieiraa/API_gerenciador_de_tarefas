@@ -10,8 +10,8 @@ from sistema_gerenciador_de_tarefas_app import models
 def listar_tarefas(request):
     items = models.Tarefa.objects.all()
     lista_de_tarefas =  [item.to_dict() for item in items]
-    tarefas_json = json.dumps(lista_de_tarefas, cls=DjangoJSONEncoder)
-    return HttpResponse(json.dumps(tarefas_json), content_type='application/json')
+    return JsonResponse(lista_de_tarefas, safe=False)
+
 
 @csrf_exempt
 def criar_tarefa(request):
