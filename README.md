@@ -50,15 +50,15 @@
 
 ## Exemplos de Endpoints
 
-### Usuários
-- `POST /api/register` - Registrar um novo usuário. - **Ainda em desenvolvimento**
-- `POST /api/login` - Fazer login e receber um token JWT. - **Ainda em desenvolvimento**
-- `PUT /api/profile` - Atualizar informações do perfil (exceto email). - **Ainda em desenvolvimento**
-- `PUT /api/password` - Alterar a senha do usuário. - **Ainda em desenvolvimento**
+### Usuários  **Ainda em desenvolvimento**
+- `POST /api/register` - Registrar um novo usuário. -
+- `POST /api/login` - Fazer login e receber um token JWT. -
+- `PUT /api/profile` - Atualizar informações do perfil (exceto email). -
+- `PUT /api/password` - Alterar a senha do usuário. -
 
 ### Tarefas
 - `POST /api/tasks` - Criar uma nova tarefa.
 - `GET /api/tasks` - Listar todas as tarefas do usuário autenticado.
-- `GET /api/tasks/{id}` - Obter detalhes de uma tarefa específica. - **Ainda em desenvolvimento**
-- `PUT /api/tasks/{id}` - Atualizar uma tarefa existente. - **Ainda em desenvolvimento**
+- `GET /api/tasks/{id}` - Obter detalhes de uma tarefa específica. - 
+- `PUT /api/tasks/{id}` - Atualizar uma tarefa existente. - 
 - `DELETE /api/tasks/{id}` - Excluir uma tarefa existente.- **Ainda em desenvolvimento**
