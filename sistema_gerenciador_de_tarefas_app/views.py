@@ -1,7 +1,4 @@
-from django.shortcuts import render
 from django.http import JsonResponse
-from django.utils import timezone
-from django.core.serializers.json import DjangoJSONEncoder
 import json
 from django.views.decorators.csrf import csrf_exempt
 from sistema_gerenciador_de_tarefas_app import models
@@ -13,7 +10,6 @@ def listar_tarefas(request):
     return JsonResponse(lista_de_tarefas, safe=False)
 
 def buscar_tarefa_pelo_id(request, task_id):
-    id = request.GET.get('id')
     item = models.Tarefa.objects.get(pk=task_id)
     return JsonResponse(item.to_dict())
 
