@@ -50,7 +50,7 @@
 
 ## Exemplos de Endpoints
 
-### Usuários  **Ainda em desenvolvimento**
+### Usuários - **(Ainda em desenvolvimento)**
 - `POST /api/register` - Registrar um novo usuário. -
 - `POST /api/login` - Fazer login e receber um token JWT. -
 - `PUT /api/profile` - Atualizar informações do perfil (exceto email). -
