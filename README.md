@@ -61,4 +61,4 @@
 - `GET /api/tasks` - Listar todas as tarefas do usuário autenticado.
 - `GET /api/tasks/{id}` - Obter detalhes de uma tarefa específica. - 
 - `PUT /api/tasks/{id}` - Atualizar uma tarefa existente. - 
-- `DELETE /api/tasks/{id}` - Excluir uma tarefa existente.- **Ainda em desenvolvimento**
+- `DELETE /api/tasks/{id}` - Excluir uma tarefa existente.-
