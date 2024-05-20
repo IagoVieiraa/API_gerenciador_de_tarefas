@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils import timezone
 
 # Create your models here.
 class Tarefa(models.Model):
@@ -7,7 +8,7 @@ class Tarefa(models.Model):
     description = models.CharField(max_length=244)
     status = models.CharField(max_length=50)
     priority = models.CharField(max_length=50)
-    inserted_at = models.DateTimeField()
+    inserted_at = models.DateTimeField(default=timezone.now())
     
     def to_dict(self):
         return {
