@@ -40,3 +40,11 @@ def editar_tarefa(request, task_id):
             return JsonResponse({'error': 'Tarefa não encontrada'}, status=404)
     
     return JsonResponse({'error': 'Método não permitido'}, status=405)
+
+def deletar_tarefa(request, task_id):
+    try:
+        item = models.Tarefa.objects.get(pk=task_id)
+        item.delete()
+        return JsonResponse({'mensagem': 'Tarefa deletada com sucesso'})
+    except models.Tarefa.DoesNotExist:
+        return JsonResponse({'error': 'Tarefa não encontrada'}, status=404)
