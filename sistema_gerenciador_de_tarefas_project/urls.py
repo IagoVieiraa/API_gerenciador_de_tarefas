@@ -1,27 +1,15 @@
-"""sistema_gerenciador_de_tarefas_project URL Configuration
-
-The `urlpatterns` list routes URLs to views. For more information please see:
-    https://docs.djangoproject.com/en/1.11/topics/http/urls/
-Examples:
-Function views
-    1. Add an import:  from my_app import views
-    2. Add a URL to urlpatterns:  url(r'^$', views.home, name='home')
-Class-based views
-    1. Add an import:  from other_app.views import Home
-    2. Add a URL to urlpatterns:  url(r'^$', Home.as_view(), name='home')
-Including another URLconf
-    1. Import the include() function: from django.conf.urls import url, include
-    2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
-"""
-from django.urls import path
+from django.urls import path, include
+from rest_framework import routers
 from django.contrib import admin
 from sistema_gerenciador_de_tarefas_app import views
+from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
+
+router = routers.DefaultRouter()
+router.register(r'tarefas', views.TarefaViewSet, basename='tarefas')
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('tarefas/', views.listar_tarefas, name='listar_tarefas'),
-    path('tarefas/<int:task_id>/', views.buscar_tarefa_pelo_id),
-    path('tarefas/criar', views.criar_tarefa, name='criar_tarefa'),
-    path('tarefas/editar/<int:task_id>/', views.editar_tarefa, name='editar_tarefa'),
-    path('tarefas/deletar/<int:task_id>/', views.deletar_tarefa, name='deletar_tarefa')
+    path('', include(router.urls)),
+    path('token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
 ]

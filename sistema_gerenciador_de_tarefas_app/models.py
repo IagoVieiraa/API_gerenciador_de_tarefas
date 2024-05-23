@@ -2,6 +2,14 @@ from django.db import models
 from django.utils import timezone
 
 # Create your models here.
+
+class Usuario(models.Model):
+    id = models.AutoField(primary_key=True, unique=True)
+    name = models.CharField(max_length=255)
+    email = models.EmailField(unique=True)
+    password = models.CharField(max_length=255)
+    
+
 class Tarefa(models.Model):
     id = models.AutoField(primary_key=True, unique=True)
     name = models.CharField(max_length=50)
@@ -9,6 +17,7 @@ class Tarefa(models.Model):
     status = models.CharField(max_length=50)
     priority = models.CharField(max_length=50)
     inserted_at = models.DateTimeField(default=timezone.now)
+    usuario = models.ForeignKey('Usuario', on_delete=models.SET_NULL, null=True)
     
     def to_dict(self):
         return {

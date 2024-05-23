@@ -1,50 +1,36 @@
-from django.http import JsonResponse
-import json
-from django.views.decorators.csrf import csrf_exempt
+from rest_framework import viewsets
+from rest_framework.response import Response
+from rest_framework.permissions import IsAuthenticated
 from sistema_gerenciador_de_tarefas_app import models
-# Create your views here.
+from sistema_gerenciador_de_tarefas_app.serializers import TarefaSerializer
 
-def listar_tarefas(request):
-    items = models.Tarefa.objects.all()
-    lista_de_tarefas =  [item.to_dict() for item in items]
-    return JsonResponse(lista_de_tarefas, safe=False)
+class TarefaViewSet(viewsets.ModelViewSet):
+    queryset = models.Tarefa.objects.all()
+    #permission_classes = (IsAuthenticated,)
+    serializer_class = TarefaSerializer
 
-def buscar_tarefa_pelo_id(request, task_id):
-    item = models.Tarefa.objects.get(pk=task_id)
-    return JsonResponse(item.to_dict())
+    def list(self, request):
+        queryset = self.queryset
+        serializer = self.serializer_class(queryset, many=True)
+        return Response(serializer.data)
 
+    def retrieve(self, request, pk=None):
+        item = self.queryset.get(pk=pk)
+        return Response(item.to_dict())
 
-@csrf_exempt
-def criar_tarefa(request):
-    if request.method == 'POST':
-        data = json.loads(request.body)
+    def create(self, request):
+        data = request.data
         tarefa = models.Tarefa.objects.create(**data)
-        return JsonResponse(tarefa.to_dict())
-    else:
-        return JsonResponse({"mensagem": "Método não permitido"}, status=405)
+        return Response(tarefa.to_dict())
 
+    def update(self, request, pk=None):
+        item = self.queryset.get(pk=pk)
+        for key, value in request.data.items():
+            setattr(item, key, value)
+        item.save()
+        return Response(item.to_dict())
 
-@csrf_exempt
-def editar_tarefa(request, task_id):
-    if request.method == 'PUT':
-        dados = json.loads(request.body.decode('utf-8'))
-        
-        try:
-            item = models.Tarefa.objects.get(pk=task_id)
-            for key, value in dados.items():
-                setattr(item, key, value)
-            item.save()
-            return JsonResponse(item.to_dict())
-        
-        except models.Tarefa.DoesNotExist:
-            return JsonResponse({'error': 'Tarefa não encontrada'}, status=404)
-    
-    return JsonResponse({'error': 'Método não permitido'}, status=405)
-
-def deletar_tarefa(request, task_id):
-    try:
-        item = models.Tarefa.objects.get(pk=task_id)
+    def destroy(self, request, pk=None):
+        item = self.queryset.get(pk=pk)
         item.delete()
-        return JsonResponse({'mensagem': 'Tarefa deletada com sucesso'})
-    except models.Tarefa.DoesNotExist:
-        return JsonResponse({'error': 'Tarefa não encontrada'}, status=404)
+        return Response({'mensagem': 'Tarefa deletada com sucesso'})
