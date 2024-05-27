@@ -1,13 +1,22 @@
+from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 from django.db import models
 from django.utils import timezone
 
 # Create your models here.
 
-class Usuario(models.Model):
+class Usuario(AbstractBaseUser, PermissionsMixin):
     id = models.AutoField(primary_key=True, unique=True)
     name = models.CharField(max_length=255)
     email = models.EmailField(unique=True)
     password = models.CharField(max_length=255)
+    groups = models.ManyToManyField('auth.Group', related_name='usuario_groups', blank=True)
+    user_permissions = models.ManyToManyField('auth.Permission', related_name='usuario_permissions', blank=True)
+
+    USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = ['email']
+
+    def check_password(self, raw_password):
+        return super().check_password(raw_password)
     
 
 class Tarefa(models.Model):
