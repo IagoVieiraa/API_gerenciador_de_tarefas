@@ -1,8 +1,8 @@
 from django.urls import path, include
 from rest_framework import routers
 from django.contrib import admin
-from sistema_gerenciador_de_tarefas_app import views
-from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
+from apps.tarefas import views
+from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView # type: ignore
 
 router = routers.DefaultRouter()
 router.register(r'tarefas', views.TarefaViewSet, basename='tarefas')
