@@ -1,2 +1,2 @@
 # Ignorar a pasta venv
-venv/
+.venv/
